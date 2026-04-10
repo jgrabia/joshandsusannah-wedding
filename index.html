@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Josh &amp; Susannah — Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --bg-warm: #ebe4d8;
+      --paper: #fffefb;
+      --ink: #2a2520;
+      --muted: #6e665c;
+      --accent: #7a6348;
+      --gold: #c4a574;
+      --gold-deep: #9a7b4f;
+      --gold-soft: rgba(196, 165, 116, 0.35);
+      --accent-soft: rgba(122, 99, 72, 0.1);
+      --shadow: 0 10px 40px rgba(42, 37, 32, 0.07);
+      --shadow-gold: 0 0 0 1px rgba(196, 165, 116, 0.25);
+      --radius: 3px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-body: "Source Sans 3", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--ink);
+      background: var(--bg-warm);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Full-page photo collage (non-interactive) */
+    .bg-collage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--bg-warm);
+    }
+
+    .bg-collage-tile {
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+      border-radius: 3px;
+      opacity: 0.42;
+      box-shadow:
+        0 8px 32px rgba(42, 37, 32, 0.18),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      filter: saturate(0.88) brightness(1.04);
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bg-collage-tile {
+        animation: collage-drift 22s ease-in-out infinite;
+      }
+
+      .bg-collage-tile:nth-child(3n) {
+        animation-duration: 26s;
+        animation-delay: -4s;
+      }
+
+      .bg-collage-tile:nth-child(3n + 1) {
+        animation-duration: 19s;
+        animation-delay: -8s;
+      }
+
+      .bg-collage-tile:nth-child(5n) {
+        animation-duration: 28s;
+      }
+    }
+
+    @keyframes collage-drift {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(var(--rot, 0deg)) scale(1);
+      }
+
+      33% {
+        transform: translate(0.4%, -0.35%) rotate(var(--rot, 0deg)) scale(1.02);
+      }
+
+      66% {
+        transform: translate(-0.35%, 0.45%) rotate(var(--rot, 0deg)) scale(0.99);
+      }
+    }
+
+    .bg-collage-scrim {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 45%, rgba(245, 240, 232, 0.88) 0%, rgba(245, 240, 232, 0.55) 45%, rgba(235, 228, 216, 0.72) 100%),
+        linear-gradient(180deg, rgba(255, 254, 251, 0.5) 0%, transparent 35%, transparent 65%, rgba(245, 240, 232, 0.65) 100%);
+    }
+
+    .bg-collage-shimmer {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+      opacity: 0.55;
+      background: linear-gradient(
+        118deg,
+        transparent 0%,
+        transparent 38%,
+        rgba(255, 255, 255, 0.08) 44%,
+        rgba(255, 248, 220, 0.35) 49.5%,
+        rgba(255, 255, 255, 0.12) 51%,
+        transparent 56%,
+        transparent 100%
+      );
+      background-size: 220% 220%;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bg-collage-shimmer {
+        animation: bg-shimmer-sweep 10s ease-in-out infinite;
+      }
+    }
+
+    @keyframes bg-shimmer-sweep {
+      0%,
+      100% {
+        background-position: 0% 40%;
+      }
+
+      50% {
+        background-position: 100% 60%;
+      }
+    }
+
+    .bg-sparkles {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-sparkles::before,
+    .bg-sparkles::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 8% 14%, rgba(255, 255, 255, 0.85), transparent),
+        radial-gradient(2px 2px at 18% 42%, rgba(255, 248, 230, 0.65), transparent),
+        radial-gradient(2px 2px at 91% 19%, rgba(255, 255, 255, 0.75), transparent),
+        radial-gradient(2px 2px at 78% 8%, rgba(255, 235, 210, 0.6), transparent),
+        radial-gradient(2px 2px at 52% 28%, rgba(255, 255, 255, 0.55), transparent),
+        radial-gradient(2px 2px at 38% 72%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 12% 68%, rgba(255, 245, 220, 0.55), transparent),
+        radial-gradient(2px 2px at 88% 76%, rgba(255, 255, 255, 0.65), transparent),
+        radial-gradient(2px 2px at 64% 91%, rgba(255, 230, 200, 0.55), transparent),
+        radial-gradient(2px 2px at 44% 58%, rgba(255, 255, 255, 0.45), transparent),
+        radial-gradient(3px 3px at 28% 88%, rgba(255, 252, 245, 0.5), transparent),
+        radial-gradient(2px 2px at 96% 48%, rgba(255, 255, 255, 0.5), transparent);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      opacity: 0.4;
+    }
+
+    .bg-sparkles::after {
+      transform: rotate(11deg) scale(1.08);
+      opacity: 0.26;
+      mix-blend-mode: screen;
+      background-image:
+        radial-gradient(2px 2px at 22% 22%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 70% 38%, rgba(255, 250, 235, 0.45), transparent),
+        radial-gradient(2px 2px at 85% 62%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 35% 18%, rgba(255, 240, 215, 0.45), transparent),
+        radial-gradient(2px 2px at 58% 82%, rgba(255, 255, 255, 0.4), transparent);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bg-sparkles::before {
+        animation: sparkle-drift 14s ease-in-out infinite;
+      }
+
+      .bg-sparkles::after {
+        animation: sparkle-fade 18s ease-in-out infinite reverse;
+      }
+    }
+
+    @keyframes sparkle-drift {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.32;
+      }
+
+      50% {
+        transform: translate(1.5%, -1.2%) rotate(0.4deg);
+        opacity: 0.48;
+      }
+    }
+
+    @keyframes sparkle-fade {
+      0%,
+      100% {
+        opacity: 0.18;
+      }
+
+      50% {
+        opacity: 0.34;
+      }
+    }
+
+    .brand-shell {
+      position: relative;
+      z-index: 4;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 1.75rem 1rem 2.5rem;
+    }
+
+    .brand-panel {
+      position: relative;
+      background: var(--paper);
+      border: 3px double var(--gold-soft);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      padding: 0.5rem 0 0;
+    }
+
+    .brand-panel::before,
+    .brand-panel::after {
+      content: "";
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-color: var(--gold);
+      border-style: solid;
+      border-width: 0;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .brand-panel::before {
+      top: 12px;
+      left: 12px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+    }
+
+    .brand-panel::after {
+      bottom: 12px;
+      right: 12px;
+      border-bottom-width: 2px;
+      border-right-width: 2px;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    header.hero {
+      text-align: center;
+      padding: 2.75rem 1rem 2rem;
+    }
+
+    .hero-flourish {
+      display: block;
+      margin: 0 auto 1.25rem;
+      width: min(320px, 90vw);
+      height: auto;
+      color: var(--gold-deep);
+    }
+
+    .hero-ornament {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      color: var(--gold-deep);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      margin: 0 0 0.6rem;
+    }
+
+    .hero-hearts {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin: 1rem 0 1.1rem;
+      color: var(--gold);
+    }
+
+    .hero-hearts svg {
+      flex-shrink: 0;
+      opacity: 0.85;
+      filter: drop-shadow(0 1px 1px rgba(154, 123, 79, 0.2));
+    }
+
+    .hero-line {
+      height: 1px;
+      width: 3rem;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.7;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2.6rem, 6.5vw, 4rem);
+      letter-spacing: 0.03em;
+      margin: 0;
+      color: var(--ink);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-sub {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--muted);
+      margin: 0.85rem 0 0;
+    }
+
+    .hero-tagline {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      margin: 1.35rem 0 0;
+    }
+
+    nav.album-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 0.5rem;
+      margin: 0 -0.5rem 1.75rem;
+      background: linear-gradient(to bottom, var(--paper) 65%, rgba(255, 254, 251, 0));
+      backdrop-filter: blur(10px);
+    }
+
+    nav.album-nav a {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--gold-deep);
+      text-decoration: none;
+      padding: 0.5rem 1.15rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fffefb 0%, #faf6ef 100%);
+      border: 1px solid var(--gold-soft);
+      box-shadow: 0 1px 2px rgba(42, 37, 32, 0.04);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    nav.album-nav a:hover {
+      background: linear-gradient(180deg, #fffdf8 0%, #f5ebe0 100%);
+      border-color: var(--gold);
+      color: var(--accent);
+      box-shadow: 0 2px 8px rgba(196, 165, 116, 0.2);
+    }
+
+    nav.album-nav a.is-active {
+      background: linear-gradient(180deg, #faf3e4 0%, #f0e4d0 100%);
+      border-color: var(--gold-deep);
+      color: var(--ink);
+      box-shadow: 0 2px 12px rgba(196, 165, 116, 0.28);
+    }
+
+    #album-stage {
+      min-height: 12rem;
+    }
+
+    section.album {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 5rem;
+    }
+
+    .album-deco {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0.65rem;
+      color: var(--gold);
+      opacity: 0.9;
+    }
+
+    section.album h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.85rem;
+      margin: 0 0 1.35rem;
+      padding-bottom: 0.85rem;
+      text-align: center;
+      border-bottom: 2px double rgba(196, 165, 116, 0.45);
+      color: var(--ink);
+    }
+
+    .count {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .album-pager {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem 1.25rem;
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(180deg, rgba(255, 254, 251, 0.9) 0%, rgba(250, 246, 239, 0.65) 100%);
+      border: 1px solid var(--gold-soft);
+      border-radius: 999px;
+      box-shadow: 0 2px 12px rgba(42, 37, 32, 0.04);
+    }
+
+    .album-pager[hidden] {
+      display: none;
+    }
+
+    .pager-btn {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold-deep);
+      background: linear-gradient(180deg, #fffefb 0%, #faf6ef 100%);
+      border: 1px solid var(--gold-soft);
+      border-radius: 999px;
+      padding: 0.5rem 1.15rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+    }
+
+    .pager-btn:hover:not(:disabled) {
+      background: linear-gradient(180deg, #fffdf8 0%, #f5ebe0 100%);
+      border-color: var(--gold);
+    }
+
+    .pager-btn:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+
+    .pager-info {
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-align: center;
+      min-width: 12rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+    }
+
+    .thumb {
+      display: block;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      width: 100%;
+      position: relative;
+      box-shadow: var(--shadow), var(--shadow-gold);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(196, 165, 116, 0.2);
+      pointer-events: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .thumb:hover {
+      box-shadow: var(--shadow), 0 0 0 2px rgba(196, 165, 116, 0.45), 0 12px 36px rgba(42, 37, 32, 0.1);
+    }
+
+    .thumb:hover::after {
+      box-shadow: inset 0 0 0 1px rgba(196, 165, 116, 0.45);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .thumb:hover img {
+      transform: scale(1.04);
+    }
+
+    .thumb:focus-visible {
+      outline: 2px solid var(--gold-deep);
+      outline-offset: 3px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(20, 18, 16, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: min(96vw, 1400px);
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: calc(92vh - 3rem);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4);
+    }
+
+    .lightbox-caption {
+      margin-top: 0.75rem;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .lightbox-close {
+      top: 1rem;
+      right: 1rem;
+      transform: none;
+    }
+
+    .lightbox-prev {
+      left: 0.5rem;
+    }
+
+    .lightbox-next {
+      right: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .lightbox-prev {
+        left: 0.25rem;
+      }
+      .lightbox-next {
+        right: 0.25rem;
+      }
+    }
+
+    footer.site-footer {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      padding: 2.25rem 1.25rem 2.75rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--gold);
+    }
+
+    .footer-ornament svg {
+      opacity: 0.85;
+    }
+
+    .footer-line {
+      width: 4rem;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+    }
+
+    .site-footer p {
+      margin: 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--gold-deep);
+    }
+
+    .site-footer .footer-year {
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.65rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-collage" id="bg-collage" aria-hidden="true"></div>
+  <div class="bg-collage-scrim" aria-hidden="true"></div>
+  <div class="bg-collage-shimmer" aria-hidden="true"></div>
+  <div class="bg-sparkles" aria-hidden="true"></div>
+
+  <div class="brand-shell">
+    <div class="brand-panel">
+      <div class="wrap">
+        <header class="hero">
+          <svg class="hero-flourish" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 48" fill="none" aria-hidden="true">
+            <path stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M24 28c12-16 36-20 52-8s18 28 8 40c-8 10-24 12-36 4M336 28c-12-16-36-20-52-8s-18 28-8 40c8 10 24 12 36 4" />
+            <path stroke="currentColor" stroke-width="0.9" stroke-linecap="round" d="M108 32c8-10 24-12 36-4s12 20 4 28c-6 6-18 6-28-2M252 32c-8-10-24-12-36-4s-12 20-4 28c6 6 18 6 28-2" />
+            <circle cx="180" cy="22" r="3" fill="currentColor" opacity="0.85" />
+            <path stroke="currentColor" stroke-width="0.9" d="M160 22h40" opacity="0.5" />
+          </svg>
+          <p class="hero-ornament">Together</p>
+          <h1>Josh &amp; Susannah</h1>
+          <div class="hero-hearts" aria-hidden="true">
+            <span class="hero-line"></span>
+            <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span class="hero-line"></span>
+          </div>
+          <p class="hero-sub">Our wedding gallery</p>
+          <p class="hero-tagline">With love &amp; gratitude</p>
+        </header>
+        <nav class="album-nav" id="album-nav" aria-label="Album sections"></nav>
+        <main id="main"></main>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button type="button" class="lightbox-close" id="lb-close" aria-label="Close">&times;</button>
+    <button type="button" class="lightbox-prev" id="lb-prev" aria-label="Previous photo">&#8249;</button>
+    <div class="lightbox-inner">
+      <img id="lb-img" src="" alt="" />
+      <p class="lightbox-caption" id="lb-cap"></p>
+    </div>
+    <button type="button" class="lightbox-next" id="lb-next" aria-label="Next photo">&#8250;</button>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-ornament" aria-hidden="true">
+      <span class="footer-line"></span>
+      <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <span class="footer-line"></span>
+    </div>
+    <p>Josh &amp; Susannah</p>
+    <p class="footer-year">Forever begins here</p>
+  </footer>
+
+  <script>
+    const GALLERY_DATA = {"albums":[{"id":"Josh and Susannah's Wedding-part-1","title":"Part 1","photos":[{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0001.jpg","name":"Josh and Susannah Wedding-0001.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0002.jpg","name":"Josh and Susannah Wedding-0002.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0003.jpg","name":"Josh and Susannah Wedding-0003.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0047.jpg","name":"Josh and Susannah Wedding-0047.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0067.jpg","name":"Josh and Susannah Wedding-0067.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0080.jpg","name":"Josh and Susannah Wedding-0080.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0081.jpg","name":"Josh and Susannah Wedding-0081.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0106.jpg","name":"Josh and Susannah Wedding-0106.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0128.jpg","name":"Josh and Susannah Wedding-0128.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0190.jpg","name":"Josh and Susannah Wedding-0190.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0204.jpg","name":"Josh and Susannah Wedding-0204.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0205.jpg","name":"Josh and Susannah Wedding-0205.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0209.jpg","name":"Josh and Susannah Wedding-0209.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0303.jpg","name":"Josh and Susannah Wedding-0303.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0304.jpg","name":"Josh and Susannah Wedding-0304.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0305.jpg","name":"Josh and Susannah Wedding-0305.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0306.jpg","name":"Josh and Susannah Wedding-0306.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0319.jpg","name":"Josh and Susannah Wedding-0319.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0320.jpg","name":"Josh and Susannah Wedding-0320.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0321.jpg","name":"Josh and Susannah Wedding-0321.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0323.jpg","name":"Josh and Susannah Wedding-0323.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0324.jpg","name":"Josh and Susannah Wedding-0324.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0325.jpg","name":"Josh and Susannah Wedding-0325.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0327.jpg","name":"Josh and Susannah Wedding-0327.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0330.jpg","name":"Josh and Susannah Wedding-0330.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0331.jpg","name":"Josh and Susannah Wedding-0331.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0332.jpg","name":"Josh and Susannah Wedding-0332.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0333.jpg","name":"Josh and Susannah Wedding-0333.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0334.jpg","name":"Josh and Susannah Wedding-0334.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0335.jpg","name":"Josh and Susannah Wedding-0335.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0336.jpg","name":"Josh and Susannah Wedding-0336.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0338.jpg","name":"Josh and Susannah Wedding-0338.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0339.jpg","name":"Josh and Susannah Wedding-0339.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0343.jpg","name":"Josh and Susannah Wedding-0343.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0347.jpg","name":"Josh and Susannah Wedding-0347.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0352.jpg","name":"Josh and Susannah Wedding-0352.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0353.jpg","name":"Josh and Susannah Wedding-0353.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0354.jpg","name":"Josh and Susannah Wedding-0354.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0356.jpg","name":"Josh and Susannah Wedding-0356.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0357.jpg","name":"Josh and Susannah Wedding-0357.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0358.jpg","name":"Josh and Susannah Wedding-0358.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0360.jpg","name":"Josh and Susannah Wedding-0360.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0363.jpg","name":"Josh and Susannah Wedding-0363.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0365.jpg","name":"Josh and Susannah Wedding-0365.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0368.jpg","name":"Josh and Susannah Wedding-0368.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0369.jpg","name":"Josh and Susannah Wedding-0369.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0370.jpg","name":"Josh and Susannah Wedding-0370.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0371.jpg","name":"Josh and Susannah Wedding-0371.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0373.jpg","name":"Josh and Susannah Wedding-0373.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0374.jpg","name":"Josh and Susannah Wedding-0374.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0376.jpg","name":"Josh and Susannah Wedding-0376.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0377.jpg","name":"Josh and Susannah Wedding-0377.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0378.jpg","name":"Josh and Susannah Wedding-0378.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0385.jpg","name":"Josh and Susannah Wedding-0385.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0386.jpg","name":"Josh and Susannah Wedding-0386.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0387.jpg","name":"Josh and Susannah Wedding-0387.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0389.jpg","name":"Josh and Susannah Wedding-0389.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0390.jpg","name":"Josh and Susannah Wedding-0390.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0391.jpg","name":"Josh and Susannah Wedding-0391.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0393.jpg","name":"Josh and Susannah Wedding-0393.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0394.jpg","name":"Josh and Susannah Wedding-0394.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0395.jpg","name":"Josh and Susannah Wedding-0395.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0396.jpg","name":"Josh and Susannah Wedding-0396.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0397.jpg","name":"Josh and Susannah Wedding-0397.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0398.jpg","name":"Josh and Susannah Wedding-0398.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0399.jpg","name":"Josh and Susannah Wedding-0399.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0400.jpg","name":"Josh and Susannah Wedding-0400.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0401.jpg","name":"Josh and Susannah Wedding-0401.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0402.jpg","name":"Josh and Susannah Wedding-0402.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0403.jpg","name":"Josh and Susannah Wedding-0403.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0404.jpg","name":"Josh and Susannah Wedding-0404.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0406.jpg","name":"Josh and Susannah Wedding-0406.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0407.jpg","name":"Josh and Susannah Wedding-0407.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0409.jpg","name":"Josh and Susannah Wedding-0409.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0411.jpg","name":"Josh and Susannah Wedding-0411.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0412.jpg","name":"Josh and Susannah Wedding-0412.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0413.jpg","name":"Josh and Susannah Wedding-0413.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0415.jpg","name":"Josh and Susannah Wedding-0415.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0416.jpg","name":"Josh and Susannah Wedding-0416.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0417.jpg","name":"Josh and Susannah Wedding-0417.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0418.jpg","name":"Josh and Susannah Wedding-0418.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0419.jpg","name":"Josh and Susannah Wedding-0419.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0420.jpg","name":"Josh and Susannah Wedding-0420.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0421.jpg","name":"Josh and Susannah Wedding-0421.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0422.jpg","name":"Josh and Susannah Wedding-0422.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0424.jpg","name":"Josh and Susannah Wedding-0424.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0426.jpg","name":"Josh and Susannah Wedding-0426.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0427.jpg","name":"Josh and Susannah Wedding-0427.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0428.jpg","name":"Josh and Susannah Wedding-0428.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0430.jpg","name":"Josh and Susannah Wedding-0430.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0434.jpg","name":"Josh and Susannah Wedding-0434.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0436.jpg","name":"Josh and Susannah Wedding-0436.jpg"},{"file":"Josh and Susannah's Wedding-part-1/Josh and Susannah Wedding-0439.jpg","name":"Josh and Susannah Wedding-0439.jpg"}]},{"id":"Josh and Susannah's Wedding-part-2","title":"Part 2","photos":[{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0007.jpg","name":"Josh and Susannah Wedding-0007.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0008.jpg","name":"Josh and Susannah Wedding-0008.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0010.jpg","name":"Josh and Susannah Wedding-0010.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0011.jpg","name":"Josh and Susannah Wedding-0011.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0014.jpg","name":"Josh and Susannah Wedding-0014.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0016.jpg","name":"Josh and Susannah Wedding-0016.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0021.jpg","name":"Josh and Susannah Wedding-0021.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0022.jpg","name":"Josh and Susannah Wedding-0022.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0023.jpg","name":"Josh and Susannah Wedding-0023.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0024.jpg","name":"Josh and Susannah Wedding-0024.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0025.jpg","name":"Josh and Susannah Wedding-0025.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0026.jpg","name":"Josh and Susannah Wedding-0026.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0027.jpg","name":"Josh and Susannah Wedding-0027.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0029.jpg","name":"Josh and Susannah Wedding-0029.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0043.jpg","name":"Josh and Susannah Wedding-0043.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0045.jpg","name":"Josh and Susannah Wedding-0045.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0048.jpg","name":"Josh and Susannah Wedding-0048.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0049.jpg","name":"Josh and Susannah Wedding-0049.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0050.jpg","name":"Josh and Susannah Wedding-0050.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0052.jpg","name":"Josh and Susannah Wedding-0052.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0054.jpg","name":"Josh and Susannah Wedding-0054.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0055.jpg","name":"Josh and Susannah Wedding-0055.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0056.jpg","name":"Josh and Susannah Wedding-0056.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0057.jpg","name":"Josh and Susannah Wedding-0057.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0058.jpg","name":"Josh and Susannah Wedding-0058.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0059.jpg","name":"Josh and Susannah Wedding-0059.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0063.jpg","name":"Josh and Susannah Wedding-0063.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0065.jpg","name":"Josh and Susannah Wedding-0065.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0068.jpg","name":"Josh and Susannah Wedding-0068.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0069.jpg","name":"Josh and Susannah Wedding-0069.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0070.jpg","name":"Josh and Susannah Wedding-0070.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0071.jpg","name":"Josh and Susannah Wedding-0071.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0074.jpg","name":"Josh and Susannah Wedding-0074.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0077.jpg","name":"Josh and Susannah Wedding-0077.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0078.jpg","name":"Josh and Susannah Wedding-0078.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0079.jpg","name":"Josh and Susannah Wedding-0079.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0083.jpg","name":"Josh and Susannah Wedding-0083.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0086.jpg","name":"Josh and Susannah Wedding-0086.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0087.jpg","name":"Josh and Susannah Wedding-0087.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0088.jpg","name":"Josh and Susannah Wedding-0088.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0091.jpg","name":"Josh and Susannah Wedding-0091.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0092.jpg","name":"Josh and Susannah Wedding-0092.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0094.jpg","name":"Josh and Susannah Wedding-0094.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0095.jpg","name":"Josh and Susannah Wedding-0095.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0096.jpg","name":"Josh and Susannah Wedding-0096.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0097.jpg","name":"Josh and Susannah Wedding-0097.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0098.jpg","name":"Josh and Susannah Wedding-0098.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0099.jpg","name":"Josh and Susannah Wedding-0099.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0100.jpg","name":"Josh and Susannah Wedding-0100.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0101.jpg","name":"Josh and Susannah Wedding-0101.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0109.jpg","name":"Josh and Susannah Wedding-0109.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0111.jpg","name":"Josh and Susannah Wedding-0111.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0117.jpg","name":"Josh and Susannah Wedding-0117.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0130.jpg","name":"Josh and Susannah Wedding-0130.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0133.jpg","name":"Josh and Susannah Wedding-0133.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0135.jpg","name":"Josh and Susannah Wedding-0135.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0155.jpg","name":"Josh and Susannah Wedding-0155.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0156.jpg","name":"Josh and Susannah Wedding-0156.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0157.jpg","name":"Josh and Susannah Wedding-0157.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0162.jpg","name":"Josh and Susannah Wedding-0162.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0163.jpg","name":"Josh and Susannah Wedding-0163.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0164.jpg","name":"Josh and Susannah Wedding-0164.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0165.jpg","name":"Josh and Susannah Wedding-0165.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0178.jpg","name":"Josh and Susannah Wedding-0178.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0179.jpg","name":"Josh and Susannah Wedding-0179.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0183.jpg","name":"Josh and Susannah Wedding-0183.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0193.jpg","name":"Josh and Susannah Wedding-0193.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0196.jpg","name":"Josh and Susannah Wedding-0196.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0197.jpg","name":"Josh and Susannah Wedding-0197.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0198.jpg","name":"Josh and Susannah Wedding-0198.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0199.jpg","name":"Josh and Susannah Wedding-0199.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0200.jpg","name":"Josh and Susannah Wedding-0200.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0206.jpg","name":"Josh and Susannah Wedding-0206.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0207.jpg","name":"Josh and Susannah Wedding-0207.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0208.jpg","name":"Josh and Susannah Wedding-0208.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0210.jpg","name":"Josh and Susannah Wedding-0210.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0211.jpg","name":"Josh and Susannah Wedding-0211.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0244.jpg","name":"Josh and Susannah Wedding-0244.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0246.jpg","name":"Josh and Susannah Wedding-0246.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0248.jpg","name":"Josh and Susannah Wedding-0248.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0249.jpg","name":"Josh and Susannah Wedding-0249.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0250.jpg","name":"Josh and Susannah Wedding-0250.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0252.jpg","name":"Josh and Susannah Wedding-0252.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0256.jpg","name":"Josh and Susannah Wedding-0256.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0257.jpg","name":"Josh and Susannah Wedding-0257.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0259.jpg","name":"Josh and Susannah Wedding-0259.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0260.jpg","name":"Josh and Susannah Wedding-0260.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0262.jpg","name":"Josh and Susannah Wedding-0262.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0267.jpg","name":"Josh and Susannah Wedding-0267.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0269.jpg","name":"Josh and Susannah Wedding-0269.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0307.jpg","name":"Josh and Susannah Wedding-0307.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0308.jpg","name":"Josh and Susannah Wedding-0308.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0311.jpg","name":"Josh and Susannah Wedding-0311.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0312.jpg","name":"Josh and Susannah Wedding-0312.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0322.jpg","name":"Josh and Susannah Wedding-0322.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0328.jpg","name":"Josh and Susannah Wedding-0328.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0329.jpg","name":"Josh and Susannah Wedding-0329.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0337.jpg","name":"Josh and Susannah Wedding-0337.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0340.jpg","name":"Josh and Susannah Wedding-0340.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0348.jpg","name":"Josh and Susannah Wedding-0348.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0350.jpg","name":"Josh and Susannah Wedding-0350.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0351.jpg","name":"Josh and Susannah Wedding-0351.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0355.jpg","name":"Josh and Susannah Wedding-0355.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0359.jpg","name":"Josh and Susannah Wedding-0359.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0364.jpg","name":"Josh and Susannah Wedding-0364.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0366.jpg","name":"Josh and Susannah Wedding-0366.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0372.jpg","name":"Josh and Susannah Wedding-0372.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0375.jpg","name":"Josh and Susannah Wedding-0375.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0381.jpg","name":"Josh and Susannah Wedding-0381.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0382.jpg","name":"Josh and Susannah Wedding-0382.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0383.jpg","name":"Josh and Susannah Wedding-0383.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0384.jpg","name":"Josh and Susannah Wedding-0384.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0388.jpg","name":"Josh and Susannah Wedding-0388.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0392.jpg","name":"Josh and Susannah Wedding-0392.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0405.jpg","name":"Josh and Susannah Wedding-0405.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0408.jpg","name":"Josh and Susannah Wedding-0408.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0410.jpg","name":"Josh and Susannah Wedding-0410.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0414.jpg","name":"Josh and Susannah Wedding-0414.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0423.jpg","name":"Josh and Susannah Wedding-0423.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0425.jpg","name":"Josh and Susannah Wedding-0425.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0429.jpg","name":"Josh and Susannah Wedding-0429.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0432.jpg","name":"Josh and Susannah Wedding-0432.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0437.jpg","name":"Josh and Susannah Wedding-0437.jpg"},{"file":"Josh and Susannah's Wedding-part-2/Josh and Susannah Wedding-0438.jpg","name":"Josh and Susannah Wedding-0438.jpg"}]},{"id":"Josh and Susannah's Wedding-part-3","title":"Part 3","photos":[{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0004.jpg","name":"Josh and Susannah Wedding-0004.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0006.jpg","name":"Josh and Susannah Wedding-0006.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0009.jpg","name":"Josh and Susannah Wedding-0009.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0012.jpg","name":"Josh and Susannah Wedding-0012.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0013.jpg","name":"Josh and Susannah Wedding-0013.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0015.jpg","name":"Josh and Susannah Wedding-0015.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0017.jpg","name":"Josh and Susannah Wedding-0017.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0018.jpg","name":"Josh and Susannah Wedding-0018.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0019.jpg","name":"Josh and Susannah Wedding-0019.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0020.jpg","name":"Josh and Susannah Wedding-0020.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0028.jpg","name":"Josh and Susannah Wedding-0028.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0035.jpg","name":"Josh and Susannah Wedding-0035.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0036.jpg","name":"Josh and Susannah Wedding-0036.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0037.jpg","name":"Josh and Susannah Wedding-0037.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0039.jpg","name":"Josh and Susannah Wedding-0039.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0040.jpg","name":"Josh and Susannah Wedding-0040.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0041.jpg","name":"Josh and Susannah Wedding-0041.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0042.jpg","name":"Josh and Susannah Wedding-0042.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0044.jpg","name":"Josh and Susannah Wedding-0044.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0046.jpg","name":"Josh and Susannah Wedding-0046.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0051.jpg","name":"Josh and Susannah Wedding-0051.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0053.jpg","name":"Josh and Susannah Wedding-0053.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0060.jpg","name":"Josh and Susannah Wedding-0060.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0061.jpg","name":"Josh and Susannah Wedding-0061.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0062.jpg","name":"Josh and Susannah Wedding-0062.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0064.jpg","name":"Josh and Susannah Wedding-0064.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0066.jpg","name":"Josh and Susannah Wedding-0066.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0072.jpg","name":"Josh and Susannah Wedding-0072.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0073.jpg","name":"Josh and Susannah Wedding-0073.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0075.jpg","name":"Josh and Susannah Wedding-0075.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0076.jpg","name":"Josh and Susannah Wedding-0076.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0082.jpg","name":"Josh and Susannah Wedding-0082.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0084.jpg","name":"Josh and Susannah Wedding-0084.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0085.jpg","name":"Josh and Susannah Wedding-0085.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0089.jpg","name":"Josh and Susannah Wedding-0089.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0090.jpg","name":"Josh and Susannah Wedding-0090.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0093.jpg","name":"Josh and Susannah Wedding-0093.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0102.jpg","name":"Josh and Susannah Wedding-0102.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0103.jpg","name":"Josh and Susannah Wedding-0103.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0104.jpg","name":"Josh and Susannah Wedding-0104.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0107.jpg","name":"Josh and Susannah Wedding-0107.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0108.jpg","name":"Josh and Susannah Wedding-0108.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0110.jpg","name":"Josh and Susannah Wedding-0110.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0112.jpg","name":"Josh and Susannah Wedding-0112.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0113.jpg","name":"Josh and Susannah Wedding-0113.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0114.jpg","name":"Josh and Susannah Wedding-0114.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0115.jpg","name":"Josh and Susannah Wedding-0115.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0118.jpg","name":"Josh and Susannah Wedding-0118.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0120.jpg","name":"Josh and Susannah Wedding-0120.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0121.jpg","name":"Josh and Susannah Wedding-0121.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0122.jpg","name":"Josh and Susannah Wedding-0122.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0123.jpg","name":"Josh and Susannah Wedding-0123.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0124.jpg","name":"Josh and Susannah Wedding-0124.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0131.jpg","name":"Josh and Susannah Wedding-0131.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0134.jpg","name":"Josh and Susannah Wedding-0134.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0136.jpg","name":"Josh and Susannah Wedding-0136.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0138.jpg","name":"Josh and Susannah Wedding-0138.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0139.jpg","name":"Josh and Susannah Wedding-0139.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0140.jpg","name":"Josh and Susannah Wedding-0140.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0142.jpg","name":"Josh and Susannah Wedding-0142.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0143.jpg","name":"Josh and Susannah Wedding-0143.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0145.jpg","name":"Josh and Susannah Wedding-0145.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0147.jpg","name":"Josh and Susannah Wedding-0147.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0151.jpg","name":"Josh and Susannah Wedding-0151.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0153.jpg","name":"Josh and Susannah Wedding-0153.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0159.jpg","name":"Josh and Susannah Wedding-0159.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0161.jpg","name":"Josh and Susannah Wedding-0161.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0166.jpg","name":"Josh and Susannah Wedding-0166.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0169.jpg","name":"Josh and Susannah Wedding-0169.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0170.jpg","name":"Josh and Susannah Wedding-0170.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0171.jpg","name":"Josh and Susannah Wedding-0171.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0173.jpg","name":"Josh and Susannah Wedding-0173.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0175.jpg","name":"Josh and Susannah Wedding-0175.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0176.jpg","name":"Josh and Susannah Wedding-0176.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0177.jpg","name":"Josh and Susannah Wedding-0177.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0181.jpg","name":"Josh and Susannah Wedding-0181.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0184.jpg","name":"Josh and Susannah Wedding-0184.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0185.jpg","name":"Josh and Susannah Wedding-0185.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0187.jpg","name":"Josh and Susannah Wedding-0187.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0191.jpg","name":"Josh and Susannah Wedding-0191.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0194.jpg","name":"Josh and Susannah Wedding-0194.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0195.jpg","name":"Josh and Susannah Wedding-0195.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0201.jpg","name":"Josh and Susannah Wedding-0201.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0202.jpg","name":"Josh and Susannah Wedding-0202.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0203.jpg","name":"Josh and Susannah Wedding-0203.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0212.jpg","name":"Josh and Susannah Wedding-0212.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0213.jpg","name":"Josh and Susannah Wedding-0213.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0215.jpg","name":"Josh and Susannah Wedding-0215.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0227.jpg","name":"Josh and Susannah Wedding-0227.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0228.jpg","name":"Josh and Susannah Wedding-0228.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0229.jpg","name":"Josh and Susannah Wedding-0229.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0230.jpg","name":"Josh and Susannah Wedding-0230.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0233.jpg","name":"Josh and Susannah Wedding-0233.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0234.jpg","name":"Josh and Susannah Wedding-0234.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0236.jpg","name":"Josh and Susannah Wedding-0236.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0237.jpg","name":"Josh and Susannah Wedding-0237.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0238.jpg","name":"Josh and Susannah Wedding-0238.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0239.jpg","name":"Josh and Susannah Wedding-0239.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0241.jpg","name":"Josh and Susannah Wedding-0241.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0242.jpg","name":"Josh and Susannah Wedding-0242.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0243.jpg","name":"Josh and Susannah Wedding-0243.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0245.jpg","name":"Josh and Susannah Wedding-0245.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0247.jpg","name":"Josh and Susannah Wedding-0247.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0251.jpg","name":"Josh and Susannah Wedding-0251.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0253.jpg","name":"Josh and Susannah Wedding-0253.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0254.jpg","name":"Josh and Susannah Wedding-0254.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0255.jpg","name":"Josh and Susannah Wedding-0255.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0258.jpg","name":"Josh and Susannah Wedding-0258.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0261.jpg","name":"Josh and Susannah Wedding-0261.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0263.jpg","name":"Josh and Susannah Wedding-0263.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0264.jpg","name":"Josh and Susannah Wedding-0264.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0265.jpg","name":"Josh and Susannah Wedding-0265.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0266.jpg","name":"Josh and Susannah Wedding-0266.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0268.jpg","name":"Josh and Susannah Wedding-0268.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0270.jpg","name":"Josh and Susannah Wedding-0270.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0271.jpg","name":"Josh and Susannah Wedding-0271.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0272.jpg","name":"Josh and Susannah Wedding-0272.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0273.jpg","name":"Josh and Susannah Wedding-0273.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0275.jpg","name":"Josh and Susannah Wedding-0275.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0276.jpg","name":"Josh and Susannah Wedding-0276.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0277.jpg","name":"Josh and Susannah Wedding-0277.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0278.jpg","name":"Josh and Susannah Wedding-0278.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0279.jpg","name":"Josh and Susannah Wedding-0279.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0280.jpg","name":"Josh and Susannah Wedding-0280.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0281.jpg","name":"Josh and Susannah Wedding-0281.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0283.jpg","name":"Josh and Susannah Wedding-0283.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0284.jpg","name":"Josh and Susannah Wedding-0284.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0285.jpg","name":"Josh and Susannah Wedding-0285.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0288.jpg","name":"Josh and Susannah Wedding-0288.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0289.jpg","name":"Josh and Susannah Wedding-0289.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0292.jpg","name":"Josh and Susannah Wedding-0292.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0293.jpg","name":"Josh and Susannah Wedding-0293.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0294.jpg","name":"Josh and Susannah Wedding-0294.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0309.jpg","name":"Josh and Susannah Wedding-0309.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0310.jpg","name":"Josh and Susannah Wedding-0310.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0313.jpg","name":"Josh and Susannah Wedding-0313.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0315.jpg","name":"Josh and Susannah Wedding-0315.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0316.jpg","name":"Josh and Susannah Wedding-0316.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0317.jpg","name":"Josh and Susannah Wedding-0317.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0318.jpg","name":"Josh and Susannah Wedding-0318.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0341.jpg","name":"Josh and Susannah Wedding-0341.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0342.jpg","name":"Josh and Susannah Wedding-0342.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0344.jpg","name":"Josh and Susannah Wedding-0344.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0345.jpg","name":"Josh and Susannah Wedding-0345.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0349.jpg","name":"Josh and Susannah Wedding-0349.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0361.jpg","name":"Josh and Susannah Wedding-0361.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0362.jpg","name":"Josh and Susannah Wedding-0362.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0367.jpg","name":"Josh and Susannah Wedding-0367.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0379.jpg","name":"Josh and Susannah Wedding-0379.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0380.jpg","name":"Josh and Susannah Wedding-0380.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0431.jpg","name":"Josh and Susannah Wedding-0431.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0433.jpg","name":"Josh and Susannah Wedding-0433.jpg"},{"file":"Josh and Susannah's Wedding-part-3/Josh and Susannah Wedding-0435.jpg","name":"Josh and Susannah Wedding-0435.jpg"}]},{"id":"Josh and Susannah's Wedding-part-4","title":"Part 4","photos":[{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0005.jpg","name":"Josh and Susannah Wedding-0005.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0030.jpg","name":"Josh and Susannah Wedding-0030.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0031.jpg","name":"Josh and Susannah Wedding-0031.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0032.jpg","name":"Josh and Susannah Wedding-0032.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0033.jpg","name":"Josh and Susannah Wedding-0033.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0034.jpg","name":"Josh and Susannah Wedding-0034.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0038.jpg","name":"Josh and Susannah Wedding-0038.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0105.jpg","name":"Josh and Susannah Wedding-0105.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0116.jpg","name":"Josh and Susannah Wedding-0116.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0119.jpg","name":"Josh and Susannah Wedding-0119.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0125.jpg","name":"Josh and Susannah Wedding-0125.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0126.jpg","name":"Josh and Susannah Wedding-0126.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0127.jpg","name":"Josh and Susannah Wedding-0127.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0129.jpg","name":"Josh and Susannah Wedding-0129.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0132.jpg","name":"Josh and Susannah Wedding-0132.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0137.jpg","name":"Josh and Susannah Wedding-0137.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0141.jpg","name":"Josh and Susannah Wedding-0141.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0144.jpg","name":"Josh and Susannah Wedding-0144.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0146.jpg","name":"Josh and Susannah Wedding-0146.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0148.jpg","name":"Josh and Susannah Wedding-0148.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0149.jpg","name":"Josh and Susannah Wedding-0149.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0150.jpg","name":"Josh and Susannah Wedding-0150.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0152.jpg","name":"Josh and Susannah Wedding-0152.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0154.jpg","name":"Josh and Susannah Wedding-0154.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0158.jpg","name":"Josh and Susannah Wedding-0158.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0160.jpg","name":"Josh and Susannah Wedding-0160.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0167.jpg","name":"Josh and Susannah Wedding-0167.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0168.jpg","name":"Josh and Susannah Wedding-0168.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0172.jpg","name":"Josh and Susannah Wedding-0172.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0174.jpg","name":"Josh and Susannah Wedding-0174.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0180.jpg","name":"Josh and Susannah Wedding-0180.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0182.jpg","name":"Josh and Susannah Wedding-0182.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0186.jpg","name":"Josh and Susannah Wedding-0186.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0188.jpg","name":"Josh and Susannah Wedding-0188.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0189.jpg","name":"Josh and Susannah Wedding-0189.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0192.jpg","name":"Josh and Susannah Wedding-0192.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0214.jpg","name":"Josh and Susannah Wedding-0214.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0216.jpg","name":"Josh and Susannah Wedding-0216.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0217.jpg","name":"Josh and Susannah Wedding-0217.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0218.jpg","name":"Josh and Susannah Wedding-0218.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0219.jpg","name":"Josh and Susannah Wedding-0219.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0220.jpg","name":"Josh and Susannah Wedding-0220.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0221.jpg","name":"Josh and Susannah Wedding-0221.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0222.jpg","name":"Josh and Susannah Wedding-0222.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0223.jpg","name":"Josh and Susannah Wedding-0223.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0224.jpg","name":"Josh and Susannah Wedding-0224.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0225.jpg","name":"Josh and Susannah Wedding-0225.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0226.jpg","name":"Josh and Susannah Wedding-0226.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0231.jpg","name":"Josh and Susannah Wedding-0231.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0232.jpg","name":"Josh and Susannah Wedding-0232.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0235.jpg","name":"Josh and Susannah Wedding-0235.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0240.jpg","name":"Josh and Susannah Wedding-0240.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0274.jpg","name":"Josh and Susannah Wedding-0274.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0282.jpg","name":"Josh and Susannah Wedding-0282.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0286.jpg","name":"Josh and Susannah Wedding-0286.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0287.jpg","name":"Josh and Susannah Wedding-0287.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0290.jpg","name":"Josh and Susannah Wedding-0290.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0291.jpg","name":"Josh and Susannah Wedding-0291.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0295.jpg","name":"Josh and Susannah Wedding-0295.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0296.jpg","name":"Josh and Susannah Wedding-0296.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0297.jpg","name":"Josh and Susannah Wedding-0297.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0298.jpg","name":"Josh and Susannah Wedding-0298.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0299.jpg","name":"Josh and Susannah Wedding-0299.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0300.jpg","name":"Josh and Susannah Wedding-0300.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0301.jpg","name":"Josh and Susannah Wedding-0301.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0302.jpg","name":"Josh and Susannah Wedding-0302.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0314.jpg","name":"Josh and Susannah Wedding-0314.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0326.jpg","name":"Josh and Susannah Wedding-0326.jpg"},{"file":"Josh and Susannah's Wedding-part-4/Josh and Susannah Wedding-0346.jpg","name":"Josh and Susannah Wedding-0346.jpg"}]}]};
+    const GALLERY_PAGE_SIZE = 20;
+
+    /** Encode each path segment for a relative URL (do not wrap in encodeURI — that double-encodes %). */
+    function photoUrl(file) {
+      return file.split("/").map(encodeURIComponent).join("/");
+    }
+
+    function build() {
+      const nav = document.getElementById("album-nav");
+      const main = document.getElementById("main");
+      const albums = GALLERY_DATA.albums || [];
+      window.__flatPhotos = flattenPhotos(albums);
+
+      const albumPages = {};
+      const navLinks = [];
+
+      main.textContent = "";
+      const stage = document.createElement("div");
+      stage.id = "album-stage";
+      main.appendChild(stage);
+
+      function createAlbumSection(albumIdx) {
+        const album = albums[albumIdx];
+        const section = document.createElement("section");
+        section.className = "album";
+        section.id = "album-" + albumIdx;
+
+        const deco = document.createElement("div");
+        deco.className = "album-deco";
+        deco.setAttribute("aria-hidden", "true");
+        deco.innerHTML =
+          '<svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+        section.appendChild(deco);
+
+        const h2 = document.createElement("h2");
+        h2.textContent = album.title + " ";
+        const span = document.createElement("span");
+        span.className = "count";
+        span.textContent = "(" + album.photos.length + " photos)";
+        h2.appendChild(span);
+        section.appendChild(h2);
+
+        const grid = document.createElement("div");
+        grid.className = "grid";
+
+        const pager = document.createElement("nav");
+        pager.className = "album-pager";
+        pager.setAttribute("aria-label", "Pages for " + album.title);
+
+        const prevBtn = document.createElement("button");
+        prevBtn.type = "button";
+        prevBtn.className = "pager-btn";
+        prevBtn.textContent = "← Previous";
+
+        const pagerInfo = document.createElement("span");
+        pagerInfo.className = "pager-info";
+
+        const nextBtn = document.createElement("button");
+        nextBtn.type = "button";
+        nextBtn.className = "pager-btn";
+        nextBtn.textContent = "Next →";
+
+        pager.appendChild(prevBtn);
+        pager.appendChild(pagerInfo);
+        pager.appendChild(nextBtn);
+
+        section.appendChild(grid);
+        section.appendChild(pager);
+
+        const photos = album.photos;
+        const pageSize = GALLERY_PAGE_SIZE;
+        let currentPage = albumPages[albumIdx] || 1;
+        const totalPages = Math.max(1, Math.ceil(photos.length / pageSize));
+
+        if (currentPage > totalPages) currentPage = totalPages;
+        albumPages[albumIdx] = currentPage;
+
+        function renderPage() {
+          grid.textContent = "";
+          const start = (currentPage - 1) * pageSize;
+          const end = Math.min(start + pageSize, photos.length);
+          for (let i = start; i < end; i++) {
+            const photo = photos[i];
+            const flatIndex = flatPhotoIndex(albums, albumIdx, i);
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "thumb";
+            btn.setAttribute("aria-label", "View " + photo.name);
+            const img = document.createElement("img");
+            img.src = photoUrl(photo.file);
+            img.alt = photo.name;
+            img.loading = "eager";
+            img.decoding = "async";
+            btn.appendChild(img);
+            btn.addEventListener("click", function () {
+              openLightbox(flatIndex);
+            });
+            grid.appendChild(btn);
+          }
+          albumPages[albumIdx] = currentPage;
+          prevBtn.disabled = currentPage <= 1;
+          nextBtn.disabled = currentPage >= totalPages;
+          pagerInfo.textContent =
+            "Page " +
+            currentPage +
+            " of " +
+            totalPages +
+            " · " +
+            (photos.length ? "Photos " + (start + 1) + "–" + end + " of " + photos.length : "");
+          pager.hidden = totalPages <= 1;
+        }
+
+        prevBtn.addEventListener("click", function () {
+          if (currentPage > 1) {
+            currentPage--;
+            renderPage();
+            pager.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        });
+        nextBtn.addEventListener("click", function () {
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderPage();
+            pager.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        });
+
+        renderPage();
+        return section;
+      }
+
+      function parseAlbumHash() {
+        const m = /^#album-(\d+)$/.exec(location.hash);
+        if (!m) return 0;
+        const idx = parseInt(m[1], 10);
+        if (isNaN(idx) || idx < 0 || idx >= albums.length) return 0;
+        return idx;
+      }
+
+      function showAlbum(albumIdx) {
+        if (albumIdx < 0 || albumIdx >= albums.length) albumIdx = 0;
+        stage.replaceChildren(createAlbumSection(albumIdx));
+        navLinks.forEach(function (link, i) {
+          link.classList.toggle("is-active", i === albumIdx);
+          if (i === albumIdx) link.setAttribute("aria-current", "page");
+          else link.removeAttribute("aria-current");
+        });
+        window.__activeAlbumIdx = albumIdx;
+      }
+
+      albums.forEach(function (album, albumIdx) {
+        const id = "album-" + albumIdx;
+        const a = document.createElement("a");
+        a.href = "#" + id;
+        a.textContent = album.title;
+        a.addEventListener("click", function () {
+          window.setTimeout(function () {
+            stage.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 0);
+        });
+        nav.appendChild(a);
+        navLinks.push(a);
+      });
+
+      window.addEventListener("hashchange", function () {
+        showAlbum(parseAlbumHash());
+      });
+
+      if (!/^#album-\d+$/.test(location.hash)) {
+        history.replaceState(null, "", "#album-0");
+      }
+      showAlbum(parseAlbumHash());
+    }
+
+    function flattenPhotos(albums) {
+      const out = [];
+      albums.forEach(function (al) {
+        al.photos.forEach(function (p) {
+          out.push({ file: p.file, name: p.name });
+        });
+      });
+      return out;
+    }
+
+    function shufflePhotos(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+      }
+      return a;
+    }
+
+    /** Scattered collage positions (% of viewport); rotation in degrees */
+    var COLLAGE_LAYOUT = [
+      { t: -8, l: -6, w: 34, h: 42, r: -6 },
+      { t: -4, l: 24, w: 28, h: 36, r: 4 },
+      { t: 0, l: 52, w: 30, h: 38, r: -3 },
+      { t: 6, l: 74, w: 30, h: 36, r: 5 },
+      { t: 30, l: -4, w: 30, h: 38, r: 3 },
+      { t: 26, l: 26, w: 26, h: 34, r: -4 },
+      { t: 34, l: 56, w: 28, h: 36, r: 4 },
+      { t: 40, l: 82, w: 24, h: 32, r: -5 },
+      { t: 60, l: -6, w: 32, h: 38, r: 5 },
+      { t: 56, l: 20, w: 26, h: 32, r: -3 },
+      { t: 66, l: 46, w: 30, h: 36, r: 4 },
+      { t: 70, l: 76, w: 28, h: 34, r: -4 },
+      { t: 86, l: 6, w: 28, h: 34, r: 3 },
+      { t: 90, l: 36, w: 28, h: 34, r: -5 },
+      { t: 82, l: 62, w: 32, h: 38, r: 5 },
+      { t: 10, l: 6, w: 24, h: 30, r: -2 },
+      { t: 16, l: 86, w: 24, h: 30, r: 6 },
+      { t: 46, l: 6, w: 28, h: 34, r: 4 },
+      { t: 50, l: 90, w: 26, h: 32, r: -3 },
+      { t: 72, l: 10, w: 30, h: 36, r: -4 },
+      { t: 76, l: 90, w: 24, h: 30, r: 3 },
+      { t: 2, l: 40, w: 24, h: 30, r: -2 },
+      { t: 18, l: 60, w: 30, h: 36, r: 5 },
+      { t: 54, l: 4, w: 26, h: 32, r: -3 },
+      { t: 62, l: 86, w: 24, h: 30, r: 4 },
+      { t: 92, l: 52, w: 28, h: 34, r: -5 },
+      { t: 38, l: 16, w: 26, h: 32, r: 3 },
+      { t: 48, l: 38, w: 30, h: 36, r: -4 }
+    ];
+
+    function buildCollageBackground() {
+      const albums = GALLERY_DATA.albums || [];
+      const flat = flattenPhotos(albums);
+      const container = document.getElementById("bg-collage");
+      if (!flat.length || !container) return;
+
+      const isMobile = window.matchMedia("(max-width: 640px)").matches;
+      const maxTiles = isMobile ? 2 : 3;
+      const picked = shufflePhotos(flat);
+      const n = Math.min(maxTiles, COLLAGE_LAYOUT.length, picked.length);
+
+      for (let i = 0; i < n; i++) {
+        const L = COLLAGE_LAYOUT[i];
+        const tile = document.createElement("div");
+        tile.className = "bg-collage-tile";
+        tile.setAttribute("aria-hidden", "true");
+        tile.style.top = L.t + "%";
+        tile.style.left = L.l + "%";
+        tile.style.width = L.w + "%";
+        tile.style.height = L.h + "%";
+        tile.style.setProperty("--rot", L.r + "deg");
+        tile.style.zIndex = String(1 + (i % 4));
+        tile.style.backgroundImage = "url(" + photoUrl(picked[i].file) + ")";
+        container.appendChild(tile);
+      }
+    }
+
+    function flatPhotoIndex(albums, albumIdx, photoIdx) {
+      let n = 0;
+      for (let i = 0; i < albumIdx; i++) {
+        n += albums[i].photos.length;
+      }
+      return n + photoIdx;
+    }
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      const lb = document.getElementById("lightbox");
+      const list = window.__flatPhotos;
+      if (!list || !list.length) return;
+      currentIndex = ((index % list.length) + list.length) % list.length;
+      updateLightbox();
+      lb.hidden = false;
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById("lightbox");
+      lb.classList.remove("open");
+      lb.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    function updateLightbox() {
+      const list = window.__flatPhotos;
+      const item = list[currentIndex];
+      const img = document.getElementById("lb-img");
+      const cap = document.getElementById("lb-cap");
+      img.src = photoUrl(item.file);
+      img.alt = item.name;
+      cap.textContent = currentIndex + 1 + " / " + list.length + " — " + item.name;
+    }
+
+    document.getElementById("lb-close").addEventListener("click", closeLightbox);
+    document.getElementById("lb-prev").addEventListener("click", function () {
+      currentIndex--;
+      if (currentIndex < 0) currentIndex = window.__flatPhotos.length - 1;
+      updateLightbox();
+    });
+    document.getElementById("lb-next").addEventListener("click", function () {
+      currentIndex++;
+      if (currentIndex >= window.__flatPhotos.length) currentIndex = 0;
+      updateLightbox();
+    });
+
+    document.getElementById("lightbox").addEventListener("click", function (e) {
+      if (e.target.id === "lightbox") closeLightbox();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      const lb = document.getElementById("lightbox");
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") document.getElementById("lb-prev").click();
+      if (e.key === "ArrowRight") document.getElementById("lb-next").click();
+    });
+
+    build();
+    window.setTimeout(function () {
+      buildCollageBackground();
+    }, 900);
+  </script>
+</body>
+</html>

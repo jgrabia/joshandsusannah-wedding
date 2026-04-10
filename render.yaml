@@ -1,0 +1,32 @@
+# Render Blueprint — deploy as a Static Site from this repo.
+# Docs: https://render.com/docs/blueprint-spec
+# After connecting the GitHub repo, use "Apply render.yaml" or create the service from the dashboard.
+
+services:
+  - type: web
+    name: joshandsusannah-wedding
+    runtime: static
+    buildCommand: python3 build_gallery.py
+    staticPublishPath: .
+    domains:
+      - joshandsusannah.com
+      - www.joshandsusannah.com
+    headers:
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path:/**/*.jpg
+        name: Cache-Control
+        value: public, max-age=2592000, immutable
+      - path:/**/*.jpeg
+        name: Cache-Control
+        value: public, max-age=2592000, immutable
+      - path:/**/*.png
+        name: Cache-Control
+        value: public, max-age=2592000, immutable
+      - path:/**/*.webp
+        name: Cache-Control
+        value: public, max-age=2592000, immutable

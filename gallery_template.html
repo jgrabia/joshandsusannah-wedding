@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Josh &amp; Susannah — Wedding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --bg-warm: #ebe4d8;
+      --paper: #fffefb;
+      --ink: #2a2520;
+      --muted: #6e665c;
+      --accent: #7a6348;
+      --gold: #c4a574;
+      --gold-deep: #9a7b4f;
+      --gold-soft: rgba(196, 165, 116, 0.35);
+      --accent-soft: rgba(122, 99, 72, 0.1);
+      --shadow: 0 10px 40px rgba(42, 37, 32, 0.07);
+      --shadow-gold: 0 0 0 1px rgba(196, 165, 116, 0.25);
+      --radius: 3px;
+      --font-display: "Cormorant Garamond", Georgia, serif;
+      --font-body: "Source Sans 3", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.5;
+      color: var(--ink);
+      background: var(--bg-warm);
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Full-page photo collage (non-interactive) */
+    .bg-collage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--bg-warm);
+    }
+
+    .bg-collage-tile {
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+      border-radius: 3px;
+      opacity: 0.42;
+      box-shadow:
+        0 8px 32px rgba(42, 37, 32, 0.18),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+      filter: saturate(0.88) brightness(1.04);
+      transform-origin: center center;
+      will-change: transform;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bg-collage-tile {
+        animation: collage-drift 22s ease-in-out infinite;
+      }
+
+      .bg-collage-tile:nth-child(3n) {
+        animation-duration: 26s;
+        animation-delay: -4s;
+      }
+
+      .bg-collage-tile:nth-child(3n + 1) {
+        animation-duration: 19s;
+        animation-delay: -8s;
+      }
+
+      .bg-collage-tile:nth-child(5n) {
+        animation-duration: 28s;
+      }
+    }
+
+    @keyframes collage-drift {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(var(--rot, 0deg)) scale(1);
+      }
+
+      33% {
+        transform: translate(0.4%, -0.35%) rotate(var(--rot, 0deg)) scale(1.02);
+      }
+
+      66% {
+        transform: translate(-0.35%, 0.45%) rotate(var(--rot, 0deg)) scale(0.99);
+      }
+    }
+
+    .bg-collage-scrim {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 90% 70% at 50% 45%, rgba(245, 240, 232, 0.88) 0%, rgba(245, 240, 232, 0.55) 45%, rgba(235, 228, 216, 0.72) 100%),
+        linear-gradient(180deg, rgba(255, 254, 251, 0.5) 0%, transparent 35%, transparent 65%, rgba(245, 240, 232, 0.65) 100%);
+    }
+
+    .bg-collage-shimmer {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      mix-blend-mode: soft-light;
+      opacity: 0.55;
+      background: linear-gradient(
+        118deg,
+        transparent 0%,
+        transparent 38%,
+        rgba(255, 255, 255, 0.08) 44%,
+        rgba(255, 248, 220, 0.35) 49.5%,
+        rgba(255, 255, 255, 0.12) 51%,
+        transparent 56%,
+        transparent 100%
+      );
+      background-size: 220% 220%;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bg-collage-shimmer {
+        animation: bg-shimmer-sweep 10s ease-in-out infinite;
+      }
+    }
+
+    @keyframes bg-shimmer-sweep {
+      0%,
+      100% {
+        background-position: 0% 40%;
+      }
+
+      50% {
+        background-position: 100% 60%;
+      }
+    }
+
+    .bg-sparkles {
+      position: fixed;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-sparkles::before,
+    .bg-sparkles::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 8% 14%, rgba(255, 255, 255, 0.85), transparent),
+        radial-gradient(2px 2px at 18% 42%, rgba(255, 248, 230, 0.65), transparent),
+        radial-gradient(2px 2px at 91% 19%, rgba(255, 255, 255, 0.75), transparent),
+        radial-gradient(2px 2px at 78% 8%, rgba(255, 235, 210, 0.6), transparent),
+        radial-gradient(2px 2px at 52% 28%, rgba(255, 255, 255, 0.55), transparent),
+        radial-gradient(2px 2px at 38% 72%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 12% 68%, rgba(255, 245, 220, 0.55), transparent),
+        radial-gradient(2px 2px at 88% 76%, rgba(255, 255, 255, 0.65), transparent),
+        radial-gradient(2px 2px at 64% 91%, rgba(255, 230, 200, 0.55), transparent),
+        radial-gradient(2px 2px at 44% 58%, rgba(255, 255, 255, 0.45), transparent),
+        radial-gradient(3px 3px at 28% 88%, rgba(255, 252, 245, 0.5), transparent),
+        radial-gradient(2px 2px at 96% 48%, rgba(255, 255, 255, 0.5), transparent);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      opacity: 0.4;
+    }
+
+    .bg-sparkles::after {
+      transform: rotate(11deg) scale(1.08);
+      opacity: 0.26;
+      mix-blend-mode: screen;
+      background-image:
+        radial-gradient(2px 2px at 22% 22%, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 70% 38%, rgba(255, 250, 235, 0.45), transparent),
+        radial-gradient(2px 2px at 85% 62%, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(2px 2px at 35% 18%, rgba(255, 240, 215, 0.45), transparent),
+        radial-gradient(2px 2px at 58% 82%, rgba(255, 255, 255, 0.4), transparent);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .bg-sparkles::before {
+        animation: sparkle-drift 14s ease-in-out infinite;
+      }
+
+      .bg-sparkles::after {
+        animation: sparkle-fade 18s ease-in-out infinite reverse;
+      }
+    }
+
+    @keyframes sparkle-drift {
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.32;
+      }
+
+      50% {
+        transform: translate(1.5%, -1.2%) rotate(0.4deg);
+        opacity: 0.48;
+      }
+    }
+
+    @keyframes sparkle-fade {
+      0%,
+      100% {
+        opacity: 0.18;
+      }
+
+      50% {
+        opacity: 0.34;
+      }
+    }
+
+    .brand-shell {
+      position: relative;
+      z-index: 4;
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 1.75rem 1rem 2.5rem;
+    }
+
+    .brand-panel {
+      position: relative;
+      background: var(--paper);
+      border: 3px double var(--gold-soft);
+      box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      padding: 0.5rem 0 0;
+    }
+
+    .brand-panel::before,
+    .brand-panel::after {
+      content: "";
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-color: var(--gold);
+      border-style: solid;
+      border-width: 0;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .brand-panel::before {
+      top: 12px;
+      left: 12px;
+      border-top-width: 2px;
+      border-left-width: 2px;
+    }
+
+    .brand-panel::after {
+      bottom: 12px;
+      right: 12px;
+      border-bottom-width: 2px;
+      border-right-width: 2px;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    header.hero {
+      text-align: center;
+      padding: 2.75rem 1rem 2rem;
+    }
+
+    .hero-flourish {
+      display: block;
+      margin: 0 auto 1.25rem;
+      width: min(320px, 90vw);
+      height: auto;
+      color: var(--gold-deep);
+    }
+
+    .hero-ornament {
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      color: var(--gold-deep);
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      margin: 0 0 0.6rem;
+    }
+
+    .hero-hearts {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin: 1rem 0 1.1rem;
+      color: var(--gold);
+    }
+
+    .hero-hearts svg {
+      flex-shrink: 0;
+      opacity: 0.85;
+      filter: drop-shadow(0 1px 1px rgba(154, 123, 79, 0.2));
+    }
+
+    .hero-line {
+      height: 1px;
+      width: 3rem;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.7;
+    }
+
+    h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2.6rem, 6.5vw, 4rem);
+      letter-spacing: 0.03em;
+      margin: 0;
+      color: var(--ink);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-sub {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--muted);
+      margin: 0.85rem 0 0;
+    }
+
+    .hero-tagline {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-deep);
+      margin: 1.35rem 0 0;
+    }
+
+    nav.album-nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 0.5rem;
+      margin: 0 -0.5rem 1.75rem;
+      background: linear-gradient(to bottom, var(--paper) 65%, rgba(255, 254, 251, 0));
+      backdrop-filter: blur(10px);
+    }
+
+    nav.album-nav a {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--gold-deep);
+      text-decoration: none;
+      padding: 0.5rem 1.15rem;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #fffefb 0%, #faf6ef 100%);
+      border: 1px solid var(--gold-soft);
+      box-shadow: 0 1px 2px rgba(42, 37, 32, 0.04);
+      transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+
+    nav.album-nav a:hover {
+      background: linear-gradient(180deg, #fffdf8 0%, #f5ebe0 100%);
+      border-color: var(--gold);
+      color: var(--accent);
+      box-shadow: 0 2px 8px rgba(196, 165, 116, 0.2);
+    }
+
+    nav.album-nav a.is-active {
+      background: linear-gradient(180deg, #faf3e4 0%, #f0e4d0 100%);
+      border-color: var(--gold-deep);
+      color: var(--ink);
+      box-shadow: 0 2px 12px rgba(196, 165, 116, 0.28);
+    }
+
+    #album-stage {
+      min-height: 12rem;
+    }
+
+    section.album {
+      margin-bottom: 3.5rem;
+      scroll-margin-top: 5rem;
+    }
+
+    .album-deco {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0.65rem;
+      color: var(--gold);
+      opacity: 0.9;
+    }
+
+    section.album h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.85rem;
+      margin: 0 0 1.35rem;
+      padding-bottom: 0.85rem;
+      text-align: center;
+      border-bottom: 2px double rgba(196, 165, 116, 0.45);
+      color: var(--ink);
+    }
+
+    .count {
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .album-pager {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem 1.25rem;
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(180deg, rgba(255, 254, 251, 0.9) 0%, rgba(250, 246, 239, 0.65) 100%);
+      border: 1px solid var(--gold-soft);
+      border-radius: 999px;
+      box-shadow: 0 2px 12px rgba(42, 37, 32, 0.04);
+    }
+
+    .album-pager[hidden] {
+      display: none;
+    }
+
+    .pager-btn {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--gold-deep);
+      background: linear-gradient(180deg, #fffefb 0%, #faf6ef 100%);
+      border: 1px solid var(--gold-soft);
+      border-radius: 999px;
+      padding: 0.5rem 1.15rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+    }
+
+    .pager-btn:hover:not(:disabled) {
+      background: linear-gradient(180deg, #fffdf8 0%, #f5ebe0 100%);
+      border-color: var(--gold);
+    }
+
+    .pager-btn:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+
+    .pager-info {
+      font-size: 0.875rem;
+      color: var(--muted);
+      text-align: center;
+      min-width: 12rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+    }
+
+    .thumb {
+      display: block;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      border-radius: var(--radius);
+      background: var(--paper);
+      cursor: pointer;
+      border: none;
+      padding: 0;
+      width: 100%;
+      position: relative;
+      box-shadow: var(--shadow), var(--shadow-gold);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .thumb::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 0 1px rgba(196, 165, 116, 0.2);
+      pointer-events: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .thumb:hover {
+      box-shadow: var(--shadow), 0 0 0 2px rgba(196, 165, 116, 0.45), 0 12px 36px rgba(42, 37, 32, 0.1);
+    }
+
+    .thumb:hover::after {
+      box-shadow: inset 0 0 0 1px rgba(196, 165, 116, 0.45);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+
+    .thumb:hover img {
+      transform: scale(1.04);
+    }
+
+    .thumb:focus-visible {
+      outline: 2px solid var(--gold-deep);
+      outline-offset: 3px;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(20, 18, 16, 0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: min(96vw, 1400px);
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: calc(92vh - 3rem);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 2px;
+      box-shadow: 0 16px 64px rgba(0, 0, 0, 0.4);
+    }
+
+    .lightbox-caption {
+      margin-top: 0.75rem;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .lightbox-close {
+      top: 1rem;
+      right: 1rem;
+      transform: none;
+    }
+
+    .lightbox-prev {
+      left: 0.5rem;
+    }
+
+    .lightbox-next {
+      right: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .lightbox-prev {
+        left: 0.25rem;
+      }
+      .lightbox-next {
+        right: 0.25rem;
+      }
+    }
+
+    footer.site-footer {
+      position: relative;
+      z-index: 4;
+      text-align: center;
+      padding: 2.25rem 1.25rem 2.75rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-ornament {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      color: var(--gold);
+    }
+
+    .footer-ornament svg {
+      opacity: 0.85;
+    }
+
+    .footer-line {
+      width: 4rem;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+    }
+
+    .site-footer p {
+      margin: 0;
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--gold-deep);
+    }
+
+    .site-footer .footer-year {
+      font-family: var(--font-body);
+      font-style: normal;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.65rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-collage" id="bg-collage" aria-hidden="true"></div>
+  <div class="bg-collage-scrim" aria-hidden="true"></div>
+  <div class="bg-collage-shimmer" aria-hidden="true"></div>
+  <div class="bg-sparkles" aria-hidden="true"></div>
+
+  <div class="brand-shell">
+    <div class="brand-panel">
+      <div class="wrap">
+        <header class="hero">
+          <svg class="hero-flourish" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 48" fill="none" aria-hidden="true">
+            <path stroke="currentColor" stroke-width="1.2" stroke-linecap="round" d="M24 28c12-16 36-20 52-8s18 28 8 40c-8 10-24 12-36 4M336 28c-12-16-36-20-52-8s-18 28-8 40c8 10 24 12 36 4" />
+            <path stroke="currentColor" stroke-width="0.9" stroke-linecap="round" d="M108 32c8-10 24-12 36-4s12 20 4 28c-6 6-18 6-28-2M252 32c-8-10-24-12-36-4s-12 20-4 28c6 6 18 6 28-2" />
+            <circle cx="180" cy="22" r="3" fill="currentColor" opacity="0.85" />
+            <path stroke="currentColor" stroke-width="0.9" d="M160 22h40" opacity="0.5" />
+          </svg>
+          <p class="hero-ornament">Together</p>
+          <h1>Josh &amp; Susannah</h1>
+          <div class="hero-hearts" aria-hidden="true">
+            <span class="hero-line"></span>
+            <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span class="hero-line"></span>
+          </div>
+          <p class="hero-sub">Our wedding gallery</p>
+          <p class="hero-tagline">With love &amp; gratitude</p>
+        </header>
+        <nav class="album-nav" id="album-nav" aria-label="Album sections"></nav>
+        <main id="main"></main>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <button type="button" class="lightbox-close" id="lb-close" aria-label="Close">&times;</button>
+    <button type="button" class="lightbox-prev" id="lb-prev" aria-label="Previous photo">&#8249;</button>
+    <div class="lightbox-inner">
+      <img id="lb-img" src="" alt="" />
+      <p class="lightbox-caption" id="lb-cap"></p>
+    </div>
+    <button type="button" class="lightbox-next" id="lb-next" aria-label="Next photo">&#8250;</button>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-ornament" aria-hidden="true">
+      <span class="footer-line"></span>
+      <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+      </svg>
+      <span class="footer-line"></span>
+    </div>
+    <p>Josh &amp; Susannah</p>
+    <p class="footer-year">Forever begins here</p>
+  </footer>
+
+  <script>
+    const GALLERY_DATA = /*__GALLERY_DATA__*/;
+    const GALLERY_PAGE_SIZE = 20;
+
+    /** Encode each path segment for a relative URL (do not wrap in encodeURI — that double-encodes %). */
+    function photoUrl(file) {
+      return file.split("/").map(encodeURIComponent).join("/");
+    }
+
+    function build() {
+      const nav = document.getElementById("album-nav");
+      const main = document.getElementById("main");
+      const albums = GALLERY_DATA.albums || [];
+      window.__flatPhotos = flattenPhotos(albums);
+
+      const albumPages = {};
+      const navLinks = [];
+
+      main.textContent = "";
+      const stage = document.createElement("div");
+      stage.id = "album-stage";
+      main.appendChild(stage);
+
+      function createAlbumSection(albumIdx) {
+        const album = albums[albumIdx];
+        const section = document.createElement("section");
+        section.className = "album";
+        section.id = "album-" + albumIdx;
+
+        const deco = document.createElement("div");
+        deco.className = "album-deco";
+        deco.setAttribute("aria-hidden", "true");
+        deco.innerHTML =
+          '<svg width="18" height="18" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+        section.appendChild(deco);
+
+        const h2 = document.createElement("h2");
+        h2.textContent = album.title + " ";
+        const span = document.createElement("span");
+        span.className = "count";
+        span.textContent = "(" + album.photos.length + " photos)";
+        h2.appendChild(span);
+        section.appendChild(h2);
+
+        const grid = document.createElement("div");
+        grid.className = "grid";
+
+        const pager = document.createElement("nav");
+        pager.className = "album-pager";
+        pager.setAttribute("aria-label", "Pages for " + album.title);
+
+        const prevBtn = document.createElement("button");
+        prevBtn.type = "button";
+        prevBtn.className = "pager-btn";
+        prevBtn.textContent = "← Previous";
+
+        const pagerInfo = document.createElement("span");
+        pagerInfo.className = "pager-info";
+
+        const nextBtn = document.createElement("button");
+        nextBtn.type = "button";
+        nextBtn.className = "pager-btn";
+        nextBtn.textContent = "Next →";
+
+        pager.appendChild(prevBtn);
+        pager.appendChild(pagerInfo);
+        pager.appendChild(nextBtn);
+
+        section.appendChild(grid);
+        section.appendChild(pager);
+
+        const photos = album.photos;
+        const pageSize = GALLERY_PAGE_SIZE;
+        let currentPage = albumPages[albumIdx] || 1;
+        const totalPages = Math.max(1, Math.ceil(photos.length / pageSize));
+
+        if (currentPage > totalPages) currentPage = totalPages;
+        albumPages[albumIdx] = currentPage;
+
+        function renderPage() {
+          grid.textContent = "";
+          const start = (currentPage - 1) * pageSize;
+          const end = Math.min(start + pageSize, photos.length);
+          for (let i = start; i < end; i++) {
+            const photo = photos[i];
+            const flatIndex = flatPhotoIndex(albums, albumIdx, i);
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "thumb";
+            btn.setAttribute("aria-label", "View " + photo.name);
+            const img = document.createElement("img");
+            img.src = photoUrl(photo.file);
+            img.alt = photo.name;
+            img.loading = "eager";
+            img.decoding = "async";
+            btn.appendChild(img);
+            btn.addEventListener("click", function () {
+              openLightbox(flatIndex);
+            });
+            grid.appendChild(btn);
+          }
+          albumPages[albumIdx] = currentPage;
+          prevBtn.disabled = currentPage <= 1;
+          nextBtn.disabled = currentPage >= totalPages;
+          pagerInfo.textContent =
+            "Page " +
+            currentPage +
+            " of " +
+            totalPages +
+            " · " +
+            (photos.length ? "Photos " + (start + 1) + "–" + end + " of " + photos.length : "");
+          pager.hidden = totalPages <= 1;
+        }
+
+        prevBtn.addEventListener("click", function () {
+          if (currentPage > 1) {
+            currentPage--;
+            renderPage();
+            pager.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        });
+        nextBtn.addEventListener("click", function () {
+          if (currentPage < totalPages) {
+            currentPage++;
+            renderPage();
+            pager.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        });
+
+        renderPage();
+        return section;
+      }
+
+      function parseAlbumHash() {
+        const m = /^#album-(\d+)$/.exec(location.hash);
+        if (!m) return 0;
+        const idx = parseInt(m[1], 10);
+        if (isNaN(idx) || idx < 0 || idx >= albums.length) return 0;
+        return idx;
+      }
+
+      function showAlbum(albumIdx) {
+        if (albumIdx < 0 || albumIdx >= albums.length) albumIdx = 0;
+        stage.replaceChildren(createAlbumSection(albumIdx));
+        navLinks.forEach(function (link, i) {
+          link.classList.toggle("is-active", i === albumIdx);
+          if (i === albumIdx) link.setAttribute("aria-current", "page");
+          else link.removeAttribute("aria-current");
+        });
+        window.__activeAlbumIdx = albumIdx;
+      }
+
+      albums.forEach(function (album, albumIdx) {
+        const id = "album-" + albumIdx;
+        const a = document.createElement("a");
+        a.href = "#" + id;
+        a.textContent = album.title;
+        a.addEventListener("click", function () {
+          window.setTimeout(function () {
+            stage.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 0);
+        });
+        nav.appendChild(a);
+        navLinks.push(a);
+      });
+
+      window.addEventListener("hashchange", function () {
+        showAlbum(parseAlbumHash());
+      });
+
+      if (!/^#album-\d+$/.test(location.hash)) {
+        history.replaceState(null, "", "#album-0");
+      }
+      showAlbum(parseAlbumHash());
+    }
+
+    function flattenPhotos(albums) {
+      const out = [];
+      albums.forEach(function (al) {
+        al.photos.forEach(function (p) {
+          out.push({ file: p.file, name: p.name });
+        });
+      });
+      return out;
+    }
+
+    function shufflePhotos(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+      }
+      return a;
+    }
+
+    /** Scattered collage positions (% of viewport); rotation in degrees */
+    var COLLAGE_LAYOUT = [
+      { t: -8, l: -6, w: 34, h: 42, r: -6 },
+      { t: -4, l: 24, w: 28, h: 36, r: 4 },
+      { t: 0, l: 52, w: 30, h: 38, r: -3 },
+      { t: 6, l: 74, w: 30, h: 36, r: 5 },
+      { t: 30, l: -4, w: 30, h: 38, r: 3 },
+      { t: 26, l: 26, w: 26, h: 34, r: -4 },
+      { t: 34, l: 56, w: 28, h: 36, r: 4 },
+      { t: 40, l: 82, w: 24, h: 32, r: -5 },
+      { t: 60, l: -6, w: 32, h: 38, r: 5 },
+      { t: 56, l: 20, w: 26, h: 32, r: -3 },
+      { t: 66, l: 46, w: 30, h: 36, r: 4 },
+      { t: 70, l: 76, w: 28, h: 34, r: -4 },
+      { t: 86, l: 6, w: 28, h: 34, r: 3 },
+      { t: 90, l: 36, w: 28, h: 34, r: -5 },
+      { t: 82, l: 62, w: 32, h: 38, r: 5 },
+      { t: 10, l: 6, w: 24, h: 30, r: -2 },
+      { t: 16, l: 86, w: 24, h: 30, r: 6 },
+      { t: 46, l: 6, w: 28, h: 34, r: 4 },
+      { t: 50, l: 90, w: 26, h: 32, r: -3 },
+      { t: 72, l: 10, w: 30, h: 36, r: -4 },
+      { t: 76, l: 90, w: 24, h: 30, r: 3 },
+      { t: 2, l: 40, w: 24, h: 30, r: -2 },
+      { t: 18, l: 60, w: 30, h: 36, r: 5 },
+      { t: 54, l: 4, w: 26, h: 32, r: -3 },
+      { t: 62, l: 86, w: 24, h: 30, r: 4 },
+      { t: 92, l: 52, w: 28, h: 34, r: -5 },
+      { t: 38, l: 16, w: 26, h: 32, r: 3 },
+      { t: 48, l: 38, w: 30, h: 36, r: -4 }
+    ];
+
+    function buildCollageBackground() {
+      const albums = GALLERY_DATA.albums || [];
+      const flat = flattenPhotos(albums);
+      const container = document.getElementById("bg-collage");
+      if (!flat.length || !container) return;
+
+      const isMobile = window.matchMedia("(max-width: 640px)").matches;
+      const maxTiles = isMobile ? 2 : 3;
+      const picked = shufflePhotos(flat);
+      const n = Math.min(maxTiles, COLLAGE_LAYOUT.length, picked.length);
+
+      for (let i = 0; i < n; i++) {
+        const L = COLLAGE_LAYOUT[i];
+        const tile = document.createElement("div");
+        tile.className = "bg-collage-tile";
+        tile.setAttribute("aria-hidden", "true");
+        tile.style.top = L.t + "%";
+        tile.style.left = L.l + "%";
+        tile.style.width = L.w + "%";
+        tile.style.height = L.h + "%";
+        tile.style.setProperty("--rot", L.r + "deg");
+        tile.style.zIndex = String(1 + (i % 4));
+        tile.style.backgroundImage = "url(" + photoUrl(picked[i].file) + ")";
+        container.appendChild(tile);
+      }
+    }
+
+    function flatPhotoIndex(albums, albumIdx, photoIdx) {
+      let n = 0;
+      for (let i = 0; i < albumIdx; i++) {
+        n += albums[i].photos.length;
+      }
+      return n + photoIdx;
+    }
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      const lb = document.getElementById("lightbox");
+      const list = window.__flatPhotos;
+      if (!list || !list.length) return;
+      currentIndex = ((index % list.length) + list.length) % list.length;
+      updateLightbox();
+      lb.hidden = false;
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById("lightbox");
+      lb.classList.remove("open");
+      lb.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    function updateLightbox() {
+      const list = window.__flatPhotos;
+      const item = list[currentIndex];
+      const img = document.getElementById("lb-img");
+      const cap = document.getElementById("lb-cap");
+      img.src = photoUrl(item.file);
+      img.alt = item.name;
+      cap.textContent = currentIndex + 1 + " / " + list.length + " — " + item.name;
+    }
+
+    document.getElementById("lb-close").addEventListener("click", closeLightbox);
+    document.getElementById("lb-prev").addEventListener("click", function () {
+      currentIndex--;
+      if (currentIndex < 0) currentIndex = window.__flatPhotos.length - 1;
+      updateLightbox();
+    });
+    document.getElementById("lb-next").addEventListener("click", function () {
+      currentIndex++;
+      if (currentIndex >= window.__flatPhotos.length) currentIndex = 0;
+      updateLightbox();
+    });
+
+    document.getElementById("lightbox").addEventListener("click", function (e) {
+      if (e.target.id === "lightbox") closeLightbox();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      const lb = document.getElementById("lightbox");
+      if (!lb.classList.contains("open")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") document.getElementById("lb-prev").click();
+      if (e.key === "ArrowRight") document.getElementById("lb-next").click();
+    });
+
+    build();
+    window.setTimeout(function () {
+      buildCollageBackground();
+    }, 900);
+  </script>
+</body>
+</html>
